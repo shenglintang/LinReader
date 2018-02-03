@@ -12,14 +12,14 @@ import android.view.ViewGroup
  * Created by lin on 2018/2/2.
  */
 abstract class BaseFragment : Fragment() {
-    private lateinit var mRootView: View
+    private var mRootView: View? = null
     protected open lateinit var mContext: Context
     protected open lateinit var mActivity: Activity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (mRootView == null) {
-            mContext = getContext()
-            mActivity = getActivity()
+            mContext = context
+            mActivity = activity
             mRootView = inflater.inflate(layoutId(), container, false)
 
         }
@@ -29,12 +29,11 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUi()
-        initOnClick()
-        initData()
+        initListener()
     }
 
     open fun initData() {}
     abstract fun layoutId(): Int
     abstract fun initUi()
-    abstract fun initOnClick()
+    abstract fun initListener()
 }

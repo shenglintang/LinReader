@@ -3,7 +3,6 @@ package com.lin.linreader.http
 
 import com.lin.linreader.Constant
 import com.lin.linreader.MyApplication
-import com.lin.linreader.utils.LogUtil
 import com.lin.linreader.utils.NetUtil
 import okhttp3.Cache
 import okhttp3.CacheControl
@@ -57,8 +56,7 @@ class MyHttpMethod private constructor(url: String) {
         fun genericClient(): OkHttpClient {
             //1.有网和没有网都是先读缓存
             //设置缓存路径
-            LogUtil.e("MyApplication().instance == ${MyApplication().instance}")
-            val httpCacheDirectory = File(MyApplication().instance.getExternalCacheDir().getAbsolutePath(), "responses")
+            val httpCacheDirectory = File(MyApplication.instance!!.getExternalCacheDir().getAbsolutePath(), "responses")
             //设置缓存 10M
             val cache = Cache(httpCacheDirectory, (10 * 1024 * 1024).toLong())
             val logging = HttpLoggingInterceptor()
@@ -72,14 +70,14 @@ class MyHttpMethod private constructor(url: String) {
                                 .addHeader("token", token)//添加token
                                 .build()
 
-                        if (!NetUtil.getNetworkIsConnected(MyApplication().instance)) {
+                        if (!NetUtil.getNetworkIsConnected(MyApplication.instance!!)) {
                             request = request.newBuilder()
                                     .cacheControl(CacheControl.FORCE_CACHE)
                                     .build()
                         }
 
                         val response = chain.proceed(request)
-                        if (NetUtil.getNetworkIsConnected(MyApplication().instance)) {
+                        if (NetUtil.getNetworkIsConnected(MyApplication.instance!!)) {
                             val maxAge = 0 * 60 // 有网络时 设置缓存超时时间0个小时
                             response.newBuilder()
                                     .addHeader("Cache-Control", "public, max-age=" + maxAge)

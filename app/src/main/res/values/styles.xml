@@ -13,4 +13,8 @@
         <item name="windowActionBar">false</item>
     </style>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="ActionModeNoBack" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>

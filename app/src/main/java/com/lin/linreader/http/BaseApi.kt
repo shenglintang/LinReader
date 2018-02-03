@@ -9,7 +9,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by lin on 2018/2/2.
  */
- class BaseApi {
+open class BaseApi {
      fun <T> toSubscribe(o: Observable<T>, s: Subscriber<T>) {
         o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

@@ -11,10 +11,11 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        instance = this
     }
 
     companion object {
-        var instance: Context = MyApplication()
+        var instance: Context? = null
+            private set
     }
 }
